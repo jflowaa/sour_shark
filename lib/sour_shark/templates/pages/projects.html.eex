@@ -1,0 +1,51 @@
+Projects I've built in my free time to learn new things or just for fun.
+
+<div class="grid grid-flow-col auto-cols-max gap-4 ">
+
+  <%= for project <- [
+      %{
+        title: "This Site",
+        description: "This is the site you're currently on. It's a static site that houses stuff related to me or my projects.",
+        source_url: "https://www.github.com/jflowaa/sour_shark",
+        project_url: "https://jack-develops.com/"
+      },
+      %{
+        title: "Plank Games",
+        description: "First code base written in Elixir/Phoenix. It's a small collection of games that are multiplayer. Driven by Pheonix LiveView and GenServers.",
+        source_url: "https://github.com/jflowaa/plank_games",
+        project_url: "https://plank-games.jack-develops.com/"
+      },
+      %{
+        title: "Dev Tool Belt",
+        description: "The idea of this project was to create a collection of tools used by developers. It's a work in process, and I don't work on it.",
+        source_url: "https://github.com/jflowaa/wavy_bird",
+        project_url: "https://wavy-bird.jack-develops.com/"
+      },
+      %{
+        title: "Bluesky Metrics",
+        description: "A project created to try out htmx and not Pheonix for a simple web site. It uses metrics from Bluesky firehose to display posts created.",
+        source_url: "https://github.com/jflowaa/icky_venus",
+        project_url: "https://icky-venus.jack-develops.com/"
+      }
+    ] do%>
+  <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= project.title %></h5>
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      <%= project.description %>
+    </p>
+    <a href="<%= project.source_url %>" target="_blank" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Source Code
+        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+    </a>
+    <a href="<%= project.project_url %>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Visit
+        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+    </a>
+  </div>
+  <% end %>
+
+</div>

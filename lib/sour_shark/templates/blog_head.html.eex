@@ -1,0 +1,5 @@
+<script src="/js/highlight.min.js"></script>
+<%= for language <- @languages do %>
+  <script src="/js/languages/<%= language %>.min.js"></script>
+<% end %>
+<script>hljs.highlightAll();</script>
