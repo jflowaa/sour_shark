@@ -1,0 +1,4 @@
+<div id="table-of-contents" class="my-5"></div>
+<article class="prose dark:prose-invert">
+  <%= @post_body %>
+</article>

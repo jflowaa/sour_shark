@@ -3,3 +3,33 @@
   <script src="/js/languages/<%= language %>.min.js"></script>
 <% end %>
 <script>hljs.highlightAll();</script>
+<script>
+  // Heavily influenced from: https://stackoverflow.com/a/41085566
+  document.addEventListener('DOMContentLoaded', htmlTableOfContents);
+
+  function htmlTableOfContents() {
+    var tableOfContentsElement = document.getElementById("table-of-contents");
+    var headings = [].slice.call(document.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+
+    if (!tableOfContentsElement || headings.length < 3)
+      return;
+    tableOfContentsElement.innerHTML = `<p class="text-2xl">Table of Contents</p>`;
+
+    headings.forEach(function (headerTag, index) {
+      const identifier = headerTag.textContent.toLowerCase().replace(/\s/g, "-") + "-" + index;
+      headerTag.setAttribute("id", identifier);
+      headerTag.innerHTML = `<a class="no-underline" href="#${identifier}">${headerTag.textContent}</a>`;
+      const headerTableOfContentsItem = tableOfContentsElement.appendChild(document.createElement("div"));
+      headerTableOfContentsItem.setAttribute("class", headerTag.tagName.toLowerCase());
+      const headerAnchor = headerTableOfContentsItem.appendChild(document.createElement("a"));
+      headerAnchor.setAttribute("href", `#${identifier}`);
+      headerAnchor.textContent = headerTag.textContent;
+    });
+  }
+</script>
+<style>
+  #table-of-contents div.h1 { margin-left: 1em }
+  #table-of-contents div.h2 { margin-left: 2em }
+  #table-of-contents div.h3 { margin-left: 3em }
+  #table-of-contents div.h4 { margin-left: 4em }
+</style>

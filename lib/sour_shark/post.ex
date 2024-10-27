@@ -3,7 +3,11 @@ defmodule SourShark.Blog.Post do
   defstruct [:id, :title, :category, :body, :description, :tags, :date, :path]
 
   def build(filename, attrs, body) do
-    path = "#{String.replace(filename, "priv/", "")}.html"
+    path =
+      filename
+      |> String.replace("priv/", "")
+      |> String.replace(".md", ".html")
+
     [year, month_day_id] = filename |> Path.rootname() |> Path.split() |> Enum.take(-2)
     [month, day, id] = String.split(month_day_id, "-", parts: 3)
     date = Date.from_iso8601!("#{year}-#{month}-#{day}")

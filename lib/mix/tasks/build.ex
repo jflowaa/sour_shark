@@ -111,7 +111,10 @@ defmodule Mix.Tasks.Build do
           assigns: [
             hot_reload: hot_reload,
             extra_head: extra_head,
-            content: "<article class=\"prose dark:prose-invert\">#{post.body}</article>"
+            content:
+              eval_file("lib/sour_shark/templates/pages/blog_post.html.eex",
+                assigns: [post_body: post.body]
+              )
           ]
         )
       )
