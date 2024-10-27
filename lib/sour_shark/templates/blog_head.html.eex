@@ -1,7 +1,7 @@
 <script src="/js/highlight.min.js"></script>
-<%= for language <- @languages do %>
+  <%= for language <- @languages do %>
   <script src="/js/languages/<%= language %>.min.js"></script>
-<% end %>
+  <% end %>
 <script>hljs.highlightAll();</script>
 <script>
   // Heavily influenced from: https://stackoverflow.com/a/41085566
@@ -28,8 +28,19 @@
   }
 </script>
 <style>
-  #table-of-contents div.h1 { margin-left: 1em }
-  #table-of-contents div.h2 { margin-left: 2em }
-  #table-of-contents div.h3 { margin-left: 3em }
-  #table-of-contents div.h4 { margin-left: 4em }
+  #table-of-contents div.h1 {
+    margin-left: 1em
+  }
+
+  #table-of-contents div.h2 {
+    margin-left: 2em
+  }
+
+  #table-of-contents div.h3 {
+    margin-left: 3em
+  }
+
+  #table-of-contents div.h4 {
+    margin-left: 4em
+  }
 </style>
