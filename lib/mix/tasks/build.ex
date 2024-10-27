@@ -112,7 +112,7 @@ defmodule Mix.Tasks.Build do
             hot_reload: hot_reload,
             extra_head: extra_head,
             content:
-              eval_file("lib/sour_shark/templates/pages/blog_post.html.eex",
+              eval_file("lib/sour_shark/templates/blog_post.html.eex",
                 assigns: [post_body: post.body]
               )
           ]
