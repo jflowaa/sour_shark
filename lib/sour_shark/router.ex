@@ -4,9 +4,14 @@ defmodule SourShark.Router do
 
   alias SourShark.Plug.ServeFiles
 
-  plug(Plug.Logger)
   plug(:match)
   plug(:dispatch)
+
+  get "/events/reload" do
+    conn
+    |> WebSockAdapter.upgrade(SourShark.HotReloader, [], timeout: 60_000)
+    |> halt()
+  end
 
   get _ do
     ServeFiles.call(conn, %{})

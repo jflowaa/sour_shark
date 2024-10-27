@@ -10,12 +10,16 @@ defmodule Mix.Tasks.Build do
 
   @shortdoc "Creates all the static files for the site"
   def run(_args) do
+    build_output()
+  end
+
+  def build_output(add_hot_reload? \\ false, should_clean? \\ false) do
     {micro, _} =
       :timer.tc(fn ->
-        clean_output_dir()
+        if should_clean?, do: clean_output_dir()
         download_highlight_js_assets()
-        build_pages()
-        build_blog()
+        build_pages(add_hot_reload?)
+        build_blog(add_hot_reload?)
         build_assets()
       end)
 
@@ -34,28 +38,37 @@ defmodule Mix.Tasks.Build do
     {_, exit_status} = System.cmd("mkdir", ["-p", "#{@output_dir}/js/languages"])
     if exit_status != 0, do: raise("Failed to create directories for highlight.js assets")
 
-    {highlight_js_output, highlight_js_exit_status} =
-      System.cmd("wget", ["-P", "#{@output_dir}/js", "#{@highlight_js_cdn}/highlight.min.js"])
+    if !File.exists?("#{@output_dir}/js/highlight.min.js") do
+      {highlight_js_output, highlight_js_exit_status} =
+        System.cmd("wget", ["-P", "#{@output_dir}/js", "#{@highlight_js_cdn}/highlight.min.js"])
 
-    if highlight_js_exit_status != 0 do
-      raise("Failed to download highlight.js: #{highlight_js_output}")
+      if highlight_js_exit_status != 0 do
+        raise("Failed to download highlight.js: #{highlight_js_output}")
+      end
     end
 
     Enum.each(@highlight_js_languages, fn lang ->
-      {lang_output, lang_exit_status} =
-        System.cmd("wget", [
-          "-P",
-          "#{@output_dir}/js/languages",
-          "#{@highlight_js_cdn}/languages/#{lang}.min.js"
-        ])
+      if !File.exists?("#{@output_dir}/js/languages/#{lang}.min.js") do
+        {lang_output, lang_exit_status} =
+          System.cmd("wget", [
+            "-P",
+            "#{@output_dir}/js/languages",
+            "#{@highlight_js_cdn}/languages/#{lang}.min.js"
+          ])
 
-      if lang_exit_status != 0 do
-        raise("Failed to download highlight.js language #{lang}: #{lang_output}")
+        if lang_exit_status != 0 do
+          raise("Failed to download highlight.js language #{lang}: #{lang_output}")
+        end
       end
     end)
   end
 
-  defp build_pages() do
+  defp build_pages(add_hot_reload?) do
+    hot_reload =
+      if add_hot_reload?,
+        do: File.read!("lib/sour_shark/templates/hot_reload.html.eex"),
+        else: nil
+
     for source <- Path.wildcard("lib/sour_shark/templates/pages/*.html.eex") do
       target = source |> Path.basename() |> String.replace(".eex", "")
       IO.puts("Building #{source} -> #{target}")
@@ -63,19 +76,28 @@ defmodule Mix.Tasks.Build do
       File.write!(
         "#{@output_dir}/#{target}",
         eval_file("lib/sour_shark/templates/root.html.eex",
-          assigns: [extra_head: nil, content: eval_file(source, assigns: [])]
+          assigns: [
+            hot_reload: hot_reload,
+            extra_head: nil,
+            content: eval_file(source, assigns: [])
+          ]
         )
       )
     end
   end
 
-  defp build_blog() do
+  defp build_blog(add_hot_reload?) do
     posts = SourShark.Blog.all_posts()
 
     extra_head =
       eval_file("lib/sour_shark/templates/blog_head.html.eex",
         assigns: [languages: @highlight_js_languages]
       )
+
+    hot_reload =
+      if add_hot_reload?,
+        do: File.read!("lib/sour_shark/templates/hot_reload.html.eex"),
+        else: nil
 
     for post <- posts do
       if Path.dirname(post.path) != ".",
@@ -87,6 +109,7 @@ defmodule Mix.Tasks.Build do
         "#{@output_dir}/#{post.path}",
         eval_file("lib/sour_shark/templates/root.html.eex",
           assigns: [
+            hot_reload: hot_reload,
             extra_head: extra_head,
             content: "<article class=\"prose dark:prose-invert\">#{post.body}</article>"
           ]

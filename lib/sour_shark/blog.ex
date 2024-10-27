@@ -13,5 +13,5 @@ defmodule SourShark.Blog do
   def all_posts, do: @posts
 
   def all_development_posts,
-    do: Enum.filter(@posts, &(&1.category == :development))
+    do: Enum.filter(all_posts(), &(&1.category == :development))
 end
