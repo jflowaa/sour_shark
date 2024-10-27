@@ -3,7 +3,10 @@
   socket.onmessage = function(event) {
     window.location.reload();
   };
-  socket.onclose = function(event) {
-    window.location.reload();
+  socket.onopen = function(e) {
+    socket.onclose = function(event) {
+      if (!event.wasClean)
+        window.location.reload();
+    };
   };
 </script>
