@@ -1,7 +1,7 @@
 <div class="mx-auto max-w-2xl text-center py-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-10">
   <h2 class="ont-medium text-2xl leading-7 text-brand">Projects</h2>
   <p class="mt-6 text-lg leading-8 text-gray-700 dark:text-white">
-    Projects I've built in my free time to learn new things or just for fun.
+    Projects I've built in my free time to learn new things or to pass time.
   </p>
 </div>
 <div class="flex gap-4 flex-wrap">
