@@ -9,15 +9,15 @@
   </title>
   <link href="/css/app.css" rel="stylesheet">
   <%= @extra_head %>
-    <%= @hot_reload %>
+  <%= @hot_reload %>
 </head>
 
-<body class="bg-white antialiased dark:bg-slate-800">
+<body class="bg-white antialiased dark:bg-gray-600">
   <header>
     <div
-      class="flex items-center justify-between border-b border-secondary-800 p-3 dark:border-secondary-800 dark:bg-gray-800">
+      class="flex items-center justify-between border-b border-secondary-800 p-3 dark:bg-gray-700">
       <div class="flex items-center gap-4">
-        <a href="/" class="rounded-full bg-primary/5 px-2 font-medium leading-6 text-brand">
+        <a href="/" class="rounded-full bg-primary/5 px-2 font-medium text-2xl leading-6 text-brand">
           <%= Application.get_env(:sour_shark, :product_name) %>
         </a>
       </div>
@@ -25,6 +25,9 @@
         class="flex items-center gap-4 text-[0.7525rem] font-semibold leading-6 text-secondary-800 active:text-secondary-800/70">
         <a href="/projects">
           Projects
+        </a>
+        <a href="/about">
+          About
         </a>
         <a href="https://github.com/jflowaa/sour_shark"
           class="rounded-lg bg-primary-100 px-2 py-1 text-[0.8125rem] hover:bg-secondary-200/80">

@@ -1,0 +1,6 @@
+<div class="mx-auto max-w-2xl text-center py-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-10">
+  <h2 class="ont-medium text-2xl leading-7 text-brand">About</h2>
+  <p class="mt-6 text-lg leading-8 text-gray-700 dark:text-white">
+    You can reach out to me if you'd like at <a href="mailto:contact@jack-develop.com" class="underline">contact@jack-develops.com</a>
+  </p>
+</div>
