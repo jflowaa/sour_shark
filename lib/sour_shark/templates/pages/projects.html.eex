@@ -4,7 +4,7 @@
     Projects I've built in my free time to learn new things or to pass time.
   </p>
 </div>
-<div class="flex gap-4 flex-wrap">
+<div class="flex gap-4 flex-wrap justify-center">
   <%= for project <- [
       %{
         title: "This Site",

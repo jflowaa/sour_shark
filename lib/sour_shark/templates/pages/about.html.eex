@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-2xl text-center py-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-10">
+<div class="max-w-2xl text-center py-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-10">
   <h2 class="font-medium text-2xl leading-7 text-brand">About Me</h2>
   <p class="mt-6 p-2 text-lg leading-8 text-gray-700 dark:text-white">
     Hey there! I'm Jack, and I write software. I love exploring new technologies and working on side projects. This site is a collection of my thoughts, blogs, and the projects I've been tinkering with.
