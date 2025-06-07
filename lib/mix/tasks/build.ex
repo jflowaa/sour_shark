@@ -89,8 +89,6 @@ defmodule Mix.Tasks.Build do
   end
 
   defp build_blog(add_hot_reload?) do
-    posts = SourShark.Blog.build_posts()
-
     extra_head =
       eval_file("lib/sour_shark/templates/blog_head.html.eex",
         assigns: [languages: @highlight_js_languages]
@@ -101,7 +99,7 @@ defmodule Mix.Tasks.Build do
         do: File.read!("lib/sour_shark/templates/hot_reload.html.eex"),
         else: nil
 
-    for post <- posts do
+    for post <- SourShark.Blog.build_posts() do
       if Path.dirname(post.path) != ".",
         do: File.mkdir_p!(Path.join([@output_dir, Path.dirname(post.path)]))
 
