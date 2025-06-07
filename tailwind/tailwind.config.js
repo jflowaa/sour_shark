@@ -4,13 +4,13 @@ const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: ["output/**/*.html"],
-  darkMode: "class", // remove once dark mode styles are better
+  darkMode: "media",
   theme: {
     extend: {
       colors: {
-        brand: "#800080",
-        primary: colors.purple,
-        secondary: colors.emerald,
+        brand: "#a259ec",
+        primary: colors.indigo,
+        secondary: colors.sky,
         neutral: colors.gray,
       },
     },

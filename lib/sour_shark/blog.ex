@@ -1,17 +1,38 @@
 defmodule SourShark.Blog do
   alias SourShark.Blog.Post
-  alias SourShark.MarkdownConverter
 
-  use NimblePublisher,
-    build: Post,
-    from: "priv/posts/**/*.md",
-    html_converter: MarkdownConverter,
-    as: :posts
+  @blog_base_path "priv/posts"
 
-  @posts Enum.sort_by(@posts, & &1.date, {:desc, Date})
+  def build_posts do
+    Path.wildcard(Path.join(@blog_base_path, "**/*.md"))
+    |> Enum.map(fn path ->
+      content = File.read!(path)
+      [metadata, body | _rest] = String.split(content, "---", parts: 2)
 
-  def all_posts, do: @posts
+      date =
+        case Regex.run(~r/(\d{4})\/(\d{2})-(\d{2})-/, path) do
+          [_, year, month, day] ->
+            Date.new!(String.to_integer(year), String.to_integer(month), String.to_integer(day))
 
-  def all_development_posts,
-    do: Enum.filter(all_posts(), &(&1.category == :development))
+          _ ->
+            nil
+        end
+
+      metadata
+      |> Code.eval_string()
+      |> elem(0)
+      |> Map.put(
+        :body,
+        MDEx.to_html!(body,
+          render: [
+            escape: false,
+            unsafe: true
+          ]
+        )
+      )
+      |> Map.put(:path, path |> String.replace_suffix(".md", ".html"))
+      |> Map.put(:date, date)
+      |> then(&struct(Post, &1))
+    end)
+  end
 end

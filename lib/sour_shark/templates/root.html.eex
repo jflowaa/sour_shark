@@ -22,7 +22,7 @@
         </a>
       </div>
       <div
-        class="flex items-center gap-4 text-[0.7525rem] font-semibold leading-6 text-secondary-800 active:text-secondary-800/70">
+        class="flex items-center gap-4 text-[0.7525rem] font-semibold leading-6 text-primary-600 dark:text-gray-200">
         <a href="/projects">
           Projects
         </a>
@@ -30,7 +30,7 @@
           About
         </a>
         <a href="https://github.com/jflowaa/sour_shark"
-          class="rounded-lg bg-primary-100 px-2 py-1 text-[0.8125rem] hover:bg-secondary-200/80">
+          class="rounded-lg bg-primary-100 px-2 py-1 text-[0.8125rem] hover:bg-primary-200/80 dark:bg-primary-900 dark:text-gray-100 dark:hover:bg-primary-800">
           Source Code <span aria-hidden="true">&rarr;</span>
         </a>
       </div>

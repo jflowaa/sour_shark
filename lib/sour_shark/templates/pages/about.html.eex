@@ -1,12 +1,28 @@
-<div class="max-w-2xl text-center py-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-10">
-  <h2 class="font-medium text-2xl leading-7 text-brand">About Me</h2>
-  <p class="mt-6 p-2 text-lg leading-8 text-gray-700 dark:text-white">
-    Hey there! I'm Jack, and I write software. I love exploring new technologies and working on side projects. This site is a collection of my thoughts, blogs, and the projects I've been tinkering with.
-  </p>
-  <p class="mt-2 p-2 text-lg leading-8 text-gray-700 dark:text-white">
-    Feel free to reach out if you want to chat
-  </p>
-  <p class="mt-4 p-2 text-lg leading-8 text-gray-700 dark:text-white">
-    You can reach me at <a href="mailto:<%= Application.get_env(:sour_shark, :contact_email) %>" class="underline"><%= Application.get_env(:sour_shark, :contact_email) %></a>
-  </p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col items-center justify-center">
+  <div class="max-w-2xl text-center p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-900 dark:border-gray-800 my-10">
+    <h2 class="text-2xl font-bold text-brand">About Me</h2>
+    <p class="mt-6 p-2 text-lg leading-8 text-gray-800 dark:text-gray-200">
+      Hey there! I'm Jack, and I write software. I love exploring new technologies and working on side projects. This site
+      is a collection of my thoughts, blogs, and the projects I've been tinkering with.
+    </p>
+    <p class="mt-2 p-2 text-lg leading-8 text-gray-800 dark:text-gray-200">
+      Feel free to reach out if you want to chat
+    </p>
+    <p class="mt-4 p-2 text-lg leading-8 text-gray-800 dark:text-gray-200">
+      You can reach me at <a href="mailto:<%= Application.get_env(:sour_shark, :contact_email) %>" class="underline text-brand dark:text-primary-300"><%= Application.get_env(:sour_shark, :contact_email) %></a>
+    </p>
+  </div>
+</body>
+
+</html>

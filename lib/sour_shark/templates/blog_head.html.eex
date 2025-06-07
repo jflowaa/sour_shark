@@ -13,7 +13,7 @@
 
     if (!tableOfContentsElement || headings.length < 3)
       return;
-    tableOfContentsElement.innerHTML = `<p class="text-2xl">Table of Contents</p>`;
+    tableOfContentsElement.innerHTML = `<p class="text-2xl font-bold text-primary-600 dark:text-primary-300">Table of Contents</p>`;
 
     headings.forEach(function (headerTag, index) {
       const identifier = headerTag.textContent.toLowerCase().replace(/\s/g, "-") + "-" + index;
@@ -28,6 +28,17 @@
   }
 </script>
 <style>
+  @media (prefers-color-scheme: dark) {
+    #table-of-contents a {
+      color: #d1d5db;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    #table-of-contents a {
+      color: #374151;
+    }
+  }
+
   #table-of-contents div.h1 {
     margin-left: 1em
   }

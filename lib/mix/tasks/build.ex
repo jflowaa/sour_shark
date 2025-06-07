@@ -24,7 +24,9 @@ defmodule Mix.Tasks.Build do
       end)
 
     ms = micro / 1000
-    IO.puts("Finished building site in #{ms}ms")
+    IO.puts("Finished building site in #{ms}ms.")
+
+    if add_hot_reload?, do: IO.puts("View site at http://0.0.0.0:8080")
   end
 
   defp clean_output_dir() do
@@ -87,7 +89,7 @@ defmodule Mix.Tasks.Build do
   end
 
   defp build_blog(add_hot_reload?) do
-    posts = SourShark.Blog.all_posts()
+    posts = SourShark.Blog.build_posts()
 
     extra_head =
       eval_file("lib/sour_shark/templates/blog_head.html.eex",
