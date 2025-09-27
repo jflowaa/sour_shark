@@ -7,9 +7,13 @@ Site I used for organizing my projects and stuff I want to post.
 First set up [tailwind](https://tailwindcss.com/blog/standalone-cli)
 
 ```bash
-curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64
-chmod +x tailwindcss-macos-arm64
-mv tailwindcss-macos-arm64 tailwind/tailwindcss
+mkdir -p tailwind && \
+cd $_ && \
+curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64 && \
+curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.js && \
+curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.js && \
+chmod +x tailwindcss-macos-arm64 && \
+mv tailwindcss-macos-arm64 tailwindcss
 ```
 
 Install Elixir dependencies

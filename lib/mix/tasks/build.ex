@@ -7,6 +7,8 @@ defmodule Mix.Tasks.Build do
   @highlight_js_version "11.9.0"
   @highlight_js_cdn "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/#{@highlight_js_version}"
   @highlight_js_languages ["elixir", "bash", "yaml", "json", "csharp"]
+  @highlight_light_theme "github.min.css"
+  @highlight_dark_theme "github-dark-dimmed.min.css"
 
   @shortdoc "Creates all the static files for the site"
   def run(_args) do
@@ -37,9 +39,10 @@ defmodule Mix.Tasks.Build do
 
   defp download_highlight_js_assets() do
     IO.puts("Downloading highlight.js assets")
-    {_, exit_status} = System.cmd("mkdir", ["-p", "#{@output_dir}/js/languages"])
-    if exit_status != 0, do: raise("Failed to create directories for highlight.js assets")
-
+    # ensure directories
+    System.cmd("mkdir", ["-p", "#{@output_dir}/js/languages"])
+    System.cmd("mkdir", ["-p", "#{@output_dir}/css"])
+    # core script
     if !File.exists?("#{@output_dir}/js/highlight.min.js") do
       {highlight_js_output, highlight_js_exit_status} =
         System.cmd("wget", ["-P", "#{@output_dir}/js", "#{@highlight_js_cdn}/highlight.min.js"])
@@ -49,6 +52,7 @@ defmodule Mix.Tasks.Build do
       end
     end
 
+    # language packs
     Enum.each(@highlight_js_languages, fn lang ->
       if !File.exists?("#{@output_dir}/js/languages/#{lang}.min.js") do
         {lang_output, lang_exit_status} =
@@ -63,6 +67,34 @@ defmodule Mix.Tasks.Build do
         end
       end
     end)
+
+    # light theme css
+    if !File.exists?("#{@output_dir}/css/highlight-light.css") do
+      {css_out, css_status} =
+        System.cmd("wget", [
+          "-O",
+          "#{@output_dir}/css/highlight-light.css",
+          "#{@highlight_js_cdn}/styles/#{@highlight_light_theme}"
+        ])
+
+      if css_status != 0 do
+        raise("Failed to download highlight.js light theme: #{css_out}")
+      end
+    end
+
+    # dark theme css
+    if !File.exists?("#{@output_dir}/css/highlight-dark.css") do
+      {css_out, css_status} =
+        System.cmd("wget", [
+          "-O",
+          "#{@output_dir}/css/highlight-dark.css",
+          "#{@highlight_js_cdn}/styles/#{@highlight_dark_theme}"
+        ])
+
+      if css_status != 0 do
+        raise("Failed to download highlight.js dark theme: #{css_out}")
+      end
+    end
   end
 
   defp build_pages(add_hot_reload?) do

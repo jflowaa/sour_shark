@@ -2,6 +2,8 @@
   <%= for language <- @languages do %>
   <script src="/js/languages/<%= language %>.min.js"></script>
   <% end %>
+<link rel="stylesheet" href="/css/highlight-light.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="/css/highlight-dark.css" media="(prefers-color-scheme: dark)">
 <script>hljs.highlightAll();</script>
 <script>
   // Heavily influenced from: https://stackoverflow.com/a/41085566
@@ -13,12 +15,12 @@
 
     if (!tableOfContentsElement || headings.length < 3)
       return;
-    tableOfContentsElement.innerHTML = `<p class="text-2xl font-bold text-primary-600 dark:text-primary-300">Table of Contents</p>`;
+    tableOfContentsElement.innerHTML = `<p class=\"text-2xl font-bold mb-4\">Table of Contents</p>`;
 
     headings.forEach(function (headerTag, index) {
       const identifier = headerTag.textContent.toLowerCase().replace(/\s/g, "-") + "-" + index;
       headerTag.setAttribute("id", identifier);
-      headerTag.innerHTML = `<a class="no-underline" href="#${identifier}">${headerTag.textContent}</a>`;
+      headerTag.innerHTML = `<a class=\"no-underline\" href=\"#${identifier}\">${headerTag.textContent}</a>`;
       const headerTableOfContentsItem = tableOfContentsElement.appendChild(document.createElement("div"));
       headerTableOfContentsItem.setAttribute("class", headerTag.tagName.toLowerCase());
       const headerAnchor = headerTableOfContentsItem.appendChild(document.createElement("a"));
@@ -28,30 +30,30 @@
   }
 </script>
 <style>
-  @media (prefers-color-scheme: dark) {
-    #table-of-contents a {
-      color: #d1d5db;
-    }
-  }
-  @media (prefers-color-scheme: light) {
-    #table-of-contents a {
-      color: #374151;
-    }
-  }
+  /* TOC indentation */
+  #table-of-contents div.h1 { margin-left: 1em }
+  #table-of-contents div.h2 { margin-left: 2em }
+  #table-of-contents div.h3 { margin-left: 3em }
+  #table-of-contents div.h4 { margin-left: 4em }
 
-  #table-of-contents div.h1 {
-    margin-left: 1em
-  }
+  /* Enhanced readable spacing for blog content */
+  #blog-article { line-height: 1.75; }
+  #blog-article p, #blog-article ul, #blog-article ol, #blog-article pre, #blog-article blockquote, #blog-article table { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+  #blog-article h1 { margin-top: 0; margin-bottom: 2rem; line-height: 1.15; }
+  #blog-article h2 { margin-top: 3rem; margin-bottom: 1.25rem; line-height: 1.2; }
+  #blog-article h3 { margin-top: 2.5rem; margin-bottom: 1rem; line-height: 1.3; }
+  #blog-article h4 { margin-top: 2rem; margin-bottom: 0.75rem; }
+  #blog-article blockquote { padding-left: 1rem; font-style: italic; }
+  #blog-article pre { border: 1px solid var(--color-base-300); }
+  #blog-article code { font-size: 0.875em; }
+  #blog-article hr { margin: 3rem 0; }
 
-  #table-of-contents div.h2 {
-    margin-left: 2em
-  }
+  /* Narrower max width for images retains good rhythm */
+  #blog-article img { margin-top: 2rem; margin-bottom: 2rem; }
 
-  #table-of-contents div.h3 {
-    margin-left: 3em
-  }
+  /* Better list spacing */
+  #blog-article li { margin-top: 0.35rem; margin-bottom: 0.35rem; }
 
-  #table-of-contents div.h4 {
-    margin-left: 4em
-  }
+  /* Dark-theme subtle tweaks rely on data-theme attribute */
+  [data-theme="dark"] #blog-article pre { border-color: var(--color-base-200); }
 </style>

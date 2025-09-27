@@ -1,15 +1,17 @@
 <div class="font-sans flex flex-col items-center justify-center">
-  <div class="max-w-2xl text-center p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-900 dark:border-gray-800 my-10">
-    <h2 class="text-2xl font-bold text-brand">About Me</h2>
-    <p class="mt-6 p-2 text-lg leading-8 text-gray-800 dark:text-gray-200">
-      Hey there! I'm Jack, and I write software. I love exploring new technologies and working on side projects. This site
-      is a collection of my thoughts, blogs, and the projects I've been tinkering with.
-    </p>
-    <p class="mt-2 p-2 text-lg leading-8 text-gray-800 dark:text-gray-200">
-      Feel free to reach out if you want to chat
-    </p>
-    <p class="mt-4 p-2 text-lg leading-8 text-gray-800 dark:text-gray-200">
-      You can reach me at <a href="mailto:<%= Application.get_env(:sour_shark, :contact_email) %>" class="underline text-brand dark:text-primary-300"><%= Application.get_env(:sour_shark, :contact_email) %></a>
-    </p>
+  <div class="card max-w-2xl bg-base-100 border border-base-300 shadow my-10">
+    <div class="card-body text-center p-5">
+      <h2 class="card-title text-3xl justify-center">About Me</h2>
+      <p class="mt-4">
+        Hey there! I'm Jack, and I write software. I love exploring new technologies and working on side projects. This site
+        is a collection of my thoughts, blogs, and the projects I've been tinkering with.
+      </p>
+      <p class="mt-2">
+        Feel free to reach out if you want to chat
+      </p>
+      <p class="mt-4">
+        You can reach me at <a href="mailto:<%= Application.get_env(:sour_shark, :contact_email) %>" class="link link-primary"><%= Application.get_env(:sour_shark, :contact_email) %></a>
+      </p>
+    </div>
   </div>
 </div>

@@ -1,5 +1,15 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import "highlight-js-atom-one-dark.css";
+/* @import "highlight-js-atom-one-dark.css"; */
+
+@import "tailwindcss" source(none);
+@plugin "../js/daisyui" {
+  themes: light --default, night --prefersdark;
+}
+
+/* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
+@plugin "../js/daisyui-theme.js" {
+  /* custom theme here */
+}

@@ -1,10 +1,12 @@
 <div class="flex flex-col">
   <div class="flex-1 flex flex-col items-center justify-center">
-    <div class="max-w-2xl text-center p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-900 dark:border-gray-800 my-10">
-      <h2 class="text-2xl font-bold text-brand">Projects</h2>
-      <p class="mt-6 text-lg leading-8 text-gray-800 dark:text-gray-200">
-        Projects I've built in my free time to learn new things or to pass time.
-      </p>
+    <div class="card max-w-2xl bg-base-100 border border-base-300 shadow my-10">
+      <div class="card-body text-center p-5">
+        <h2 class="card-title text-3xl justify-center">Projects</h2>
+        <p class="mt-4">
+          Projects I've built in my free time to learn new things or to pass time.
+        </p>
+      </div>
     </div>
     <div class="flex gap-4 flex-wrap justify-center">
       <%= for project <- [
@@ -39,28 +41,28 @@
           project_url: "https://turbo-falcon.jack-develops.com/"
         }
       ] do%>
-      <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-900 dark:border-gray-800">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-primary-600 dark:text-primary-300">
-          <%= project.title %>
-        </h5>
-        <p class="mb-3 font-normal text-gray-800 dark:text-gray-200">
-          <%= project.description %>
-        </p>
-
-        <div class="flex text-sm font-medium text-center text-white ">
-          <a href="<%= project.project_url %>" target="_blank" class="bg-primary-600 rounded-lg hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-700 dark:hover:bg-primary-800 dark:focus:ring-primary-900 p-2">
+      <div class="card w-80 bg-base-100 border border-base-300 shadow">
+        <div class="card-body p-6">
+          <h5 class="card-title text-2xl">
+            <%= project.title %>
+          </h5>
+          <p class="text-sm">
+            <%= project.description %>
+          </p>
+          <div class="card-actions justify-end mt-2">
+            <a href="<%= project.project_url %>" target="_blank" class="btn btn-primary btn-sm">
               Visit
-              <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+              <svg class="w-3.5 h-3.5 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
               </svg>
-          </a>
-          &nbsp;
-          <a href="<%= project.source_url %>" target="_blank" class="bg-primary-600 rounded-lg hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-700 dark:hover:bg-primary-800 dark:focus:ring-primary-900 p-2">
+            </a>
+            <a href="<%= project.source_url %>" target="_blank" class="btn btn-outline btn-sm">
               Source Code
-              <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+              <svg class="w-3.5 h-3.5 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
               </svg>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
       <% end %>
