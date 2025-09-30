@@ -36,9 +36,10 @@
       </div>
 
       <div class="navbar-end gap-3">
-          <a href="/projects">Projects</a>
-          <a href="/about">About</a>
-        <a href="https://github.com/jflowaa/sour_shark" class="btn btn-primary btn-sm normal-case">Source Code &rarr;</a>
+        <!-- Hide these links on mobile; show from md breakpoint upward -->
+        <a href="/projects" class="hidden md:inline-flex">Projects</a>
+        <a href="/about" class="hidden md:inline-flex">About</a>
+        <a href="https://github.com/jflowaa/sour_shark" class="btn btn-primary btn-sm normal-case hidden md:inline-flex">Source Code &rarr;</a>
         <!-- Theme selector -->
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost btn-sm gap-1" aria-label="Theme menu" id="theme-menu-trigger">
