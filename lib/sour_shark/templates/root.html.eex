@@ -9,6 +9,7 @@
   </title>
   <% css_version = :rand.uniform(1_000_000) %>
   <link href="/css/app.css?v=<%= css_version %>" rel="stylesheet">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
   <%= @extra_head %>
   <%= @hot_reload %>
 </head>
@@ -81,8 +82,8 @@
 
       function applyTheme(theme) {
         if (theme === 'light' || theme === 'dark') {
-          // map logical 'dark' to daisyUI 'night'
-          root.setAttribute('data-theme', theme === 'dark' ? 'night' : 'light');
+          // map logical 'dark' to daisyUI 'dim'
+          root.setAttribute('data-theme', theme === 'dark' ? 'dim' : 'light');
         } else {
           root.removeAttribute('data-theme'); // fall back to system via daisyUI config
         }

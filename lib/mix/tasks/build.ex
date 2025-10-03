@@ -6,7 +6,7 @@ defmodule Mix.Tasks.Build do
   @output_dir "./output"
   @highlight_js_version "11.9.0"
   @highlight_js_cdn "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/#{@highlight_js_version}"
-  @highlight_js_languages ["elixir", "bash", "yaml", "json", "csharp"]
+  @highlight_js_languages ["elixir", "bash", "yaml", "json", "csharp", "xml"]
   @highlight_light_theme "github.min.css"
   @highlight_dark_theme "github-dark-dimmed.min.css"
 
@@ -131,7 +131,10 @@ defmodule Mix.Tasks.Build do
         do: File.read!("lib/sour_shark/templates/hot_reload.html.eex"),
         else: nil
 
-    for post <- SourShark.Blog.build_posts() do
+    # Build posts once so we can also generate the RSS feed from the same list
+    posts = SourShark.Blog.build_posts() |> Enum.sort_by(& &1.date, {:desc, Date})
+
+    for post <- posts do
       if Path.dirname(post.path) != ".",
         do: File.mkdir_p!(Path.join([@output_dir, Path.dirname(post.path)]))
 
@@ -151,6 +154,27 @@ defmodule Mix.Tasks.Build do
         )
       )
     end
+
+    # Generate RSS feed
+    IO.puts("Building rss.xml")
+
+    # Use extracted private function for formatting dates
+    last_build_date =
+      case Enum.find(posts, & &1.date) do
+        %_{date: date} when not is_nil(date) -> format_rss_date(date)
+        _ -> format_rss_date(Date.utc_today())
+      end
+
+    rss_xml =
+      eval_file("lib/sour_shark/templates/rss.xml.eex",
+        assigns: [
+          posts: posts,
+          last_build_date: last_build_date,
+          format_date: &format_rss_date/1
+        ]
+      )
+
+    File.write!("#{@output_dir}/rss.xml", rss_xml)
   end
 
   defp build_assets() do
@@ -171,5 +195,24 @@ defmodule Mix.Tasks.Build do
     if exit_status != 0 do
       raise("Failed to build Tailwind CSS: #{output}")
     end
+  end
+
+  defp format_rss_date(%Date{} = date) do
+    {:ok, dt} = DateTime.new(date, ~T[00:00:00], "Etc/UTC")
+    Calendar.strftime(dt, "%a, %d %b %Y %H:%M:%S GMT")
+  end
+
+  defp format_rss_date(%DateTime{} = dt), do: Calendar.strftime(dt, "%a, %d %b %Y %H:%M:%S GMT")
+
+  defp format_rss_date(%NaiveDateTime{} = ndt) do
+    {:ok, dt} = DateTime.from_naive(ndt, "Etc/UTC")
+    Calendar.strftime(dt, "%a, %d %b %Y %H:%M:%S GMT")
+  end
+
+  defp format_rss_date(binary) when is_binary(binary), do: binary
+
+  defp format_rss_date(other) do
+    IO.warn("Unexpected date value in RSS formatting: #{inspect(other)}")
+    format_rss_date(Date.utc_today())
   end
 end

@@ -16,6 +16,33 @@
   #blog-article h5 { font-size:1.125rem; line-height:1.4; margin-top:1.75rem; margin-bottom:0.5rem; }
   #blog-article h6 { font-size:1rem; line-height:1.4; margin-top:1.5rem; margin-bottom:0.5rem; }
   .hide-path-line span.__path_label_removed { display:none; }
+  /* Force list markers & indentation (overrides DaisyUI reset that hides bullets) */
+  #blog-article ul, #blog-article ol { list-style-position: outside; margin-top:1.25em; margin-bottom:1.25em; padding-left:1.5rem; }
+  #blog-article ul { list-style-type: disc; }
+  #blog-article ol { list-style-type: decimal; }
+  #blog-article ul ul { list-style-type: circle; margin-top:0.75em; margin-bottom:0.75em; }
+  #blog-article ol ul, #blog-article ul ol, #blog-article ol ol { margin-top:0.75em; margin-bottom:0.75em; }
+  #blog-article li { margin-top:0.25em; margin-bottom:0.25em; }
+  #blog-article ul>li::marker { color: var(--tw-prose-bullets); }
+  #blog-article ol>li::marker { color: var(--tw-prose-counters); }
+  /* Improve link visibility & accessibility */
+  #blog-article a { color: hsl(var(--p, 221 83% 53%)); /* DaisyUI primary or fallback blue */ text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; font-weight: 500; transition: color .15s ease, background-color .15s ease, text-decoration-color .15s ease; }
+  #blog-article a:hover, #blog-article a:focus-visible { color: hsl(var(--p, 221 83% 46%)); text-decoration-color: currentColor; }
+  #blog-article a:visited { color: hsl(var(--p, 221 83% 53%)); opacity: .9; }
+  #blog-article a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 2px; }
+  #blog-article a code { color: inherit; }
+  .prose-invert #blog-article a { color: hsl(var(--p, 217 91% 60%)); }
+  .prose-invert #blog-article a:hover, .prose-invert #blog-article a:focus-visible { color: hsl(var(--p, 217 91% 70%)); }
+  /* Do NOT restyle links that wrap entire headings (keep heading typography) */
+  #blog-article h1>a, #blog-article h2>a, #blog-article h3>a, #blog-article h4>a, #blog-article h5>a, #blog-article h6>a {
+    color: inherit !important;
+    text-decoration: none !important;
+    font-weight: inherit !important;
+  }
+  #blog-article h1>a:hover, #blog-article h2>a:hover, #blog-article h3>a:hover,
+  #blog-article h4>a:hover, #blog-article h5>a:hover, #blog-article h6>a:hover {
+    text-decoration: none;
+  }
 </style>
 <script>
   (function() {
@@ -37,7 +64,7 @@
       if (!lines.length) return null;
       const first = lines[0].trim();
       if (!first) return null;
-      // HTML comment pattern: <!-- label --> (allow optional surrounding asterisks inside)
+      // HTML comment pattern: <!--\s*([!*~_A-Za-z0-9 .,\/\\:;#@(){}\-+\[\]|`'"?=&%]+)\s*-->$/ (allow optional surrounding asterisks inside)
       const htmlCommentMatch = first.match(/^<!--\s*([!*~_A-Za-z0-9 .,\/\\:;#@(){}\-+\[\]|`'"?=&%]+)\s*-->$/);
       if (htmlCommentMatch) {
         let inner = htmlCommentMatch[1].trim();

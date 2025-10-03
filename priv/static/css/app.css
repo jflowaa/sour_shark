@@ -6,7 +6,7 @@
 
 @import "tailwindcss" source(none);
 @plugin "../js/daisyui" {
-  themes: light --default, night --prefersdark;
+  themes: light --default, dim --prefersdark;
 }
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
