@@ -32,3 +32,6 @@ _build/
 output/
 **/.DS_Store
 /priv/posts/*
+# Compose deployment values
+deployment/.env
+deployment/env/*.env

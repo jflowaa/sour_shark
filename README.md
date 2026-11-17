@@ -4,18 +4,6 @@ Site I used for organizing my projects and stuff I want to post.
 
 ## Installation
 
-First set up [tailwind](https://tailwindcss.com/blog/standalone-cli)
-
-```bash
-mkdir -p tailwind && \
-cd $_ && \
-curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64 && \
-curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.js && \
-curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.js && \
-chmod +x tailwindcss-macos-arm64 && \
-mv tailwindcss-macos-arm64 tailwindcss
-```
-
 Install Elixir dependencies
 
 ```bash
@@ -33,7 +21,8 @@ This will start up a Bandit server and a file watcher. Write the markdown files 
 ## Deployment
 
 ```bash
-mix build
+./deployment/deploy_ovh.sh
 ```
 
-Running this will just do a conversion of all the markdown into HTML and not start a Bandit server. The resulting HTML also will not include hot reloading JavaScript.
+The script builds an nginx image from `output/` and ships the `linux/amd64`
+image to the OVH Podman runtime.

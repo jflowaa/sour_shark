@@ -39,6 +39,24 @@
           description: "Scrapes the who's hiring threads on Hacker News and uses Gemini to summarize the posts. Built with Elixir, Phoenix, and GenStage",
           source_url: "https://github.com/jflowaa/turbo_falcon",
           project_url: "https://turbo-falcon.jack-develops.com/"
+        },
+        %{
+          title: "Flip 7 Scorecard",
+          description: "Score keeper for the Flip 7 card game. Built with Elixir and Phoenix LiveView.",
+          source_url: "https://github.com/jflowaa/shiny_wings",
+          project_url: "https://flip7.jack-develops.com/"
+        },
+        %{
+          title: "Kaikou",
+          description: "A mobile-first web app for learning to speak Traditional Mandarin. Each level ends with a spoken quiz using the browser's speech recognition. Built with Go.",
+          source_url: "https://github.com/jflowaa/flat_hill",
+          project_url: "https://kaikou.jack-develops.com/"
+        },
+        %{
+          title: "Apple Pie",
+          description: "A credential broker and token vault with a Razor Pages and HTMX console. Built with .NET and PostgreSQL, with separate control and data planes.",
+          source_url: "https://github.com/jflowaa/apple_pie",
+          project_url: "https://apple-pie-console.jack-develops.com/"
         }
       ] do%>
       <div class="card w-80 bg-base-100 border border-base-300 shadow">

@@ -190,7 +190,7 @@ defmodule Mix.Tasks.Build do
     IO.puts("Building Tailwind CSS")
 
     {output, exit_status} =
-      System.cmd("sh", ["-c", "source ./tailwind/build_css.sh"], stderr_to_stdout: false)
+      System.cmd("bash", ["./tailwind/build_css.sh"], stderr_to_stdout: false)
 
     if exit_status != 0 do
       raise("Failed to build Tailwind CSS: #{output}")
