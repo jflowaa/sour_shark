@@ -3,6 +3,25 @@ defmodule SourShark.Blog do
 
   @blog_base_path "priv/posts"
 
+  @doc "All posts, newest first."
+  def sorted_posts do
+    build_posts()
+    |> Enum.sort_by(&(&1.date || ~D[0001-01-01]), {:desc, Date})
+  end
+
+  @doc "Rough reading time in whole minutes, ignoring markup and code blocks."
+  def reading_time(%Post{body: body}) do
+    words =
+      body
+      |> String.replace(~r/<pre[\s\S]*?<\/pre>/i, " ")
+      |> String.replace(~r/<[^>]+>/, " ")
+      |> String.replace("&nbsp;", " ")
+      |> String.split(~r/\s+/, trim: true)
+      |> length()
+
+    max(1, round(words / 200))
+  end
+
   def build_posts do
     Path.wildcard(Path.join(@blog_base_path, "**/*.md"))
     |> Enum.map(fn path ->

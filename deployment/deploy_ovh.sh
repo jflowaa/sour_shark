@@ -15,6 +15,9 @@ PROJECT="sour-shark"
 HOST="jack-develops.com"
 DOCKERFILE="Dockerfile"
 
+echo "==> building static site into output/"
+mix build
+
 container_available || { echo "error: container engine is not running" >&2; exit 1; }
 ssh -T -o BatchMode=yes "$OVH_HOST" 'sudo -n podman info >/dev/null'   || { echo "error: cannot reach Podman on $OVH_HOST" >&2; exit 1; }
 

@@ -1,0 +1,201 @@
+<section class="mx-auto w-full max-w-4xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+  <header class="border-b border-base-300 pb-8">
+    <p class="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Resume</p>
+    <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-base-content/60">
+      <a href="mailto:<%= Application.get_env(:sour_shark, :contact_email) %>" class="transition-colors hover:text-primary">
+        <%= Application.get_env(:sour_shark, :contact_email) %>
+      </a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="https://github.com/jflowaa" target="_blank" rel="noopener" class="transition-colors hover:text-primary">github.com/jflowaa</a>
+      <span aria-hidden="true">&middot;</span>
+      <span>California</span>
+    </div>
+  </header>
+
+  <div class="mt-10 space-y-12">
+    <section>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-base-content/50">Summary</h2>
+      <p class="mt-3 text-lg leading-relaxed text-base-content/80">
+        Software engineer with experience building high-throughput, event-driven platforms end to end.
+        Architected an integration platform from 0&rarr;1 at a lean, acquisition-stage company, and designed
+        distributed compute processing billions of workflow steps per day in single-digit milliseconds. Deep in the
+        .NET ecosystem with JavaScript and React across the stack; turns ambiguous product goals into shipped systems
+        and stronger engineers.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-base-content/50">Professional Experience</h2>
+
+      <div class="mt-6 space-y-10">
+        <article>
+          <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">
+                Staff Software Engineer
+              </h3>
+              <p class="text-sm italic text-base-content/60">Integration platform company (startup acquired)</p>
+            </div>
+          </div>
+          <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-base-content/80 marker:text-base-content/30">
+            <li>
+              <strong class="font-semibold text-base-content">Zero-to-One IPaaS Architecture:</strong>
+              Architected a proprietary Integration Platform as a Service from inception, taking the business from
+              early revenue through acquisition and continued growth&mdash;on a lean cost base with company-wide
+              headcount under 25.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Workflow Engine:</strong>
+              Designed and built a low- to no-code workflow engine for defining event-processing and integration logic,
+              executing user-supplied JavaScript in a secure V8 sandbox (and briefly C#); now runs ~4M invocations and
+              handles over 1 TB of data per day.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Developer Ecosystem:</strong>
+              Built OpenAPI-driven code generation, an SDK, and a CLI that let external developers build and run
+              connectors on the platform, growing the ecosystem to 300+ public and private connectors.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Distributed Compute &amp; Event-Driven Systems:</strong>
+              Designed a distributed NServiceBus architecture using the saga pattern to process tens of millions of
+              events and billions of workflow steps per day in single-digit milliseconds, guaranteeing reliable
+              ingestion and fair load distribution.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Backend Performance:</strong>
+              Cut memory allocation 60&ndash;70% across the domain by reworking high-volume .NET paths to
+              source-generated, streaming JSON deserialization instead of full-payload buffering, supporting APIs at
+              1&ndash;3k requests/sec.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Database Design &amp; Optimization:</strong>
+              Owned schema design and maintenance for a 16+ TB SQL Server database, reducing it to 8 TB through column
+              compression, index tuning, and retention policies; migrated high-volume primary keys from int to bigint
+              with coordinated rollouts to avoid outages.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Reliability &amp; Uptime:</strong>
+              Sustained 99.99% uptime with no full outages by improving failure isolation and graceful degradation, so
+              load spikes surfaced as latency rather than downtime.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Cloud Infrastructure &amp; DevOps:</strong>
+              Operated Kubernetes workloads across AWS and Azure on Linux, with Prometheus/Grafana observability;
+              introduced CI/CD pipelines and automated test suites from scratch where none existed.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Technical Leadership:</strong>
+              Led the team as it grew from 3 to 7 engineers, owned day-to-day technical direction, mentored engineers
+              through continuous pair programming and code review, authored RFCs and PoCs, and drove cross-team
+              initiatives and architecture dependencies for organization-wide rollouts.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">AI-Assisted Engineering:</strong>
+              Standardized LLM-assisted engineering across the team, using Claude, Copilot, Cursor, and OpenCode for
+              agentic planning, research, code review, and test generation.
+            </li>
+          </ul>
+        </article>
+
+        <article>
+          <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">Web Applications Engineer</h3>
+              <p class="text-sm italic text-base-content/60">Industrial equipment manufacturer</p>
+            </div>
+          </div>
+          <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-base-content/80 marker:text-base-content/30">
+            <li>
+              <strong class="font-semibold text-base-content">API &amp; Database Design:</strong>
+              Built high-performance REST APIs on ASP.NET Core backed by Azure Cosmos DB, using Gremlin for
+              graph-based data modeling and queries.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Cloud Services:</strong>
+              Shipped an automated reporting microservice on Azure Functions that let customers schedule
+              equipment-data exports via email and MMS, surfaced through a React dashboard.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Testing &amp; Delivery:</strong>
+              Established unit and integration testing practices and automated delivery with TFS and Azure Pipelines.
+            </li>
+          </ul>
+        </article>
+
+        <article>
+          <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">Software Engineer</h3>
+              <p class="text-sm italic text-base-content/60">Sports technology company</p>
+            </div>
+          </div>
+          <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-base-content/80 marker:text-base-content/30">
+            <li>
+              <strong class="font-semibold text-base-content">Product Ownership &amp; Impact:</strong>
+              Owned the core media and scoreboard product suite end to end as sole engineer, taking it from concept
+              to market launch and early revenue within the first year.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Embedded Linux &amp; IoT:</strong>
+              Built a resilient Linux media player that pulled scheduled S3 content (GStreamer/GTK), synchronized
+              venues over WebSockets, and used A/B partitioning to recover automatically from power loss or failed
+              updates.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Mobile Development:</strong>
+              Developed native Android (Java) and iOS (Swift) apps for remote scoreboard control, team scheduling, and
+              live game updates.
+            </li>
+            <li>
+              <strong class="font-semibold text-base-content">Engineering Standards:</strong>
+              Introduced mandatory code review, coding standards, Git Flow, and CI/CD, reducing release friction and
+              operational overhead.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-sm font-semibold uppercase tracking-[0.14em] text-base-content/50">Technical Skills</h2>
+      <dl class="mt-3 space-y-3 leading-relaxed text-base-content/80">
+        <div>
+          <dt class="inline font-semibold text-base-content">Languages &amp; Frameworks:</dt>
+          <dd class="inline">
+            C#, .NET (Core/Framework), Elixir/OTP (side projects), Python, JavaScript, React, SQL; working knowledge
+            of Java, Kotlin, Swift, C/C++
+          </dd>
+        </div>
+        <div>
+          <dt class="inline font-semibold text-base-content">Cloud &amp; Infrastructure:</dt>
+          <dd class="inline">
+            AWS, Azure, Kubernetes, Docker, Linux, DevOps, Prometheus, Grafana, Nginx, Envoy, Ambassador, CI/CD
+            (GitHub Actions, Azure DevOps, TFS)
+          </dd>
+        </div>
+        <div>
+          <dt class="inline font-semibold text-base-content">Data &amp; Messaging:</dt>
+          <dd class="inline">
+            SQL Server (schema design, query tuning, retention and compression), Redis, Cosmos DB (Gremlin), SQLite,
+            NoSQL, streaming pipelines, high-volume data ingestion
+          </dd>
+        </div>
+        <div>
+          <dt class="inline font-semibold text-base-content">Architecture:</dt>
+          <dd class="inline">
+            Event-driven and asynchronous design, distributed compute, workflow engines, sandboxed code execution
+            (V8), OpenAPI code generation, SDK/CLI design, sagas, microservices, high availability, system design
+            (RFCs/PoCs), REST APIs
+          </dd>
+        </div>
+        <div>
+          <dt class="inline font-semibold text-base-content">AI &amp; Tooling:</dt>
+          <dd class="inline">
+            Claude, Copilot, Cursor, OpenCode; agentic planning and research workflows, automated code review and test
+            generation, Git (trunk-based/Git Flow)
+          </dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+</section>

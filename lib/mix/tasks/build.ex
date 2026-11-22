@@ -105,6 +105,7 @@ defmodule Mix.Tasks.Build do
 
     for source <- Path.wildcard("lib/sour_shark/templates/pages/*.html.eex") do
       target = source |> Path.basename() |> String.replace(".eex", "")
+      page = target |> Path.rootname() |> String.to_atom()
       IO.puts("Building #{source} -> #{target}")
 
       File.write!(
@@ -113,12 +114,21 @@ defmodule Mix.Tasks.Build do
           assigns: [
             hot_reload: hot_reload,
             extra_head: nil,
+            page: page,
+            page_title: page_title(page),
             content: eval_file(source, assigns: [])
           ]
         )
       )
     end
   end
+
+  defp page_title(:index), do: product_name()
+  defp page_title(:about), do: "About · #{product_name()}"
+  defp page_title(:projects), do: "Projects · #{product_name()}"
+  defp page_title(page), do: "#{page |> to_string() |> String.capitalize()} · #{product_name()}"
+
+  defp product_name, do: Application.get_env(:sour_shark, :product_name)
 
   defp build_blog(add_hot_reload?) do
     extra_head =
@@ -146,9 +156,11 @@ defmodule Mix.Tasks.Build do
           assigns: [
             hot_reload: hot_reload,
             extra_head: extra_head,
+            page: :post,
+            page_title: "#{post.title} · #{product_name()}",
             content:
               eval_file("lib/sour_shark/templates/blog_post.html.eex",
-                assigns: [post_body: post.body]
+                assigns: [post: post, post_body: post.body]
               )
           ]
         )

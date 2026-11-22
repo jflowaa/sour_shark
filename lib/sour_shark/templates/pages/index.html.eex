@@ -1,34 +1,150 @@
-<div class="flex gap-4 flex-wrap justify-center">
-  <%= for post <- SourShark.Blog.build_posts() do %>
-    <div class="card w-80 bg-base-100 border border-base-300 shadow">
-      <div class="card-body p-6">
-        <h5 class="card-title text-2xl">
-          <%= post.title %>
-        </h5>
-        <p class="text-sm">
-          <%= post.description %>
-        </p>
-        <p class="text-xs">
-          <%= post.date %>
-        </p>
-        <p class="flex flex-wrap gap-2 mb-2">
-          <span class="badge badge-primary badge-outline">
-            <%= post.category %>
-          </span>
-          <%= for tag <- post.tags do %>
-            <span class="badge badge-secondary">
-              <%= tag %>
-            </span>
-          <% end %>
-        </p>
-        <div class="card-actions justify-end">
-          <a href="<%= String.replace(post.path, " .html", "" ) %>" class="btn btn-primary btn-sm">Read
-            <svg class="w-3.5 h-3.5 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </a>
-        </div>
+<%
+  posts = SourShark.Blog.sorted_posts()
+  tags = posts |> Enum.flat_map(& &1.tags) |> Enum.uniq() |> Enum.sort()
+%>
+<section class="mx-auto w-full max-w-6xl px-4 pb-14 pt-16 sm:px-6 sm:pt-20 lg:px-8">
+  <p class="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Hey</p>
+  <h1 class="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-base-content sm:text-5xl">
+    I build small, useful (debatable) things for the web.
+  </h1>
+  <p class="mt-5 max-w-2xl text-lg leading-relaxed text-base-content/70">
+    This is where I keep my thoughts and side projects.
+  </p>
+  <div class="mt-8 flex flex-wrap items-center gap-3">
+    <a href="/projects" class="btn btn-primary btn-sm">See projects</a>
+    <a href="/about" class="btn btn-ghost btn-sm">About me</a>
+  </div>
+</section>
+
+<section id="writing" class="border-t border-base-300">
+  <div class="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-semibold tracking-tight">Writing</h2>
+        <p class="mt-1 text-sm text-base-content/60">Long-form notes, mostly about things I'm learning or thinking.</p>
       </div>
+      <a href="/rss.xml" class="inline-flex items-center gap-1.5 text-sm font-medium text-base-content/60 transition-colors hover:text-primary">
+        RSS feed
+        <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+        </svg>
+      </a>
     </div>
-  <% end %>
-</div>
+
+    <div id="tag-filters" class="mt-6 flex flex-wrap gap-2" aria-label="Filter writing by tag">
+      <button type="button" data-filter-tag="" class="tag-filter is-active">All</button>
+      <%= for tag <- tags do %>
+        <button type="button" data-filter-tag="<%= tag %>" class="tag-filter"><%= tag %></button>
+      <% end %>
+    </div>
+
+    <p id="post-count" class="mt-4 hidden text-sm text-base-content/50"></p>
+
+    <div class="mt-6 border-y border-base-300">
+      <%= for post <- posts do %>
+        <article
+          data-post
+          data-title="<%= post.title %>"
+          data-tags="<%= post.tags |> Enum.map(&String.downcase/1) |> Enum.join("|") %>"
+          class="group grid gap-2 border-b border-base-300 py-6 transition-colors last:border-b-0 sm:grid-cols-[8.5rem_1fr] sm:gap-8">
+          <div class="text-sm tabular-nums text-base-content/50 sm:pt-1.5">
+            <%= if post.date, do: Calendar.strftime(post.date, "%b %-d, %Y") %>
+          </div>
+          <div class="min-w-0">
+            <h3 class="text-xl font-semibold tracking-tight">
+              <a href="/<%= post.path %>" class="transition-colors group-hover:text-primary"><%= post.title %></a>
+            </h3>
+            <p class="mt-1.5 max-w-2xl leading-relaxed text-base-content/70">
+              <%= post.description %>
+            </p>
+            <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-base-content/50">
+              <span class="font-medium uppercase tracking-wide text-base-content/60"><%= post.category %></span>
+              <span aria-hidden="true">&middot;</span>
+              <span><%= SourShark.Blog.reading_time(post) %> min read</span>
+              <%= if post.tags != [] do %>
+                <span aria-hidden="true">&middot;</span>
+                <span class="flex flex-wrap gap-1.5">
+                  <%= for tag <- post.tags do %>
+                    <a href="?tag=<%= URI.encode_www_form(String.downcase(tag)) %>" class="rounded-full bg-base-200 px-2 py-0.5 text-base-content/60 transition-colors hover:bg-base-300 hover:text-base-content" data-post-tag="<%= String.downcase(tag) %>"><%= tag %></a>
+                  <% end %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    </div>
+
+    <p id="no-posts" class="hidden py-12 text-center text-base-content/60">
+      No posts match that tag yet.
+    </p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const rows = Array.from(document.querySelectorAll('[data-post]'));
+    const buttons = Array.from(document.querySelectorAll('[data-filter-tag]'));
+    const countEl = document.getElementById('post-count');
+    const emptyEl = document.getElementById('no-posts');
+    if (!rows.length || !buttons.length) return;
+
+    let activeTag = (new URLSearchParams(window.location.search).get('tag') || '').toLowerCase();
+
+    function paintButtons() {
+      buttons.forEach((button) => {
+        const isActive = (button.getAttribute('data-filter-tag') || '').toLowerCase() === activeTag;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    function applyFilter() {
+      let visible = 0;
+      rows.forEach((row) => {
+        const tags = (row.getAttribute('data-tags') || '').split('|').filter(Boolean);
+        const match = !activeTag || tags.includes(activeTag);
+        row.classList.toggle('hidden', !match);
+        if (match) visible += 1;
+      });
+
+      paintButtons();
+      countEl.classList.remove('hidden');
+      countEl.textContent = activeTag
+        ? `${visible} of ${rows.length} posts tagged “${activeTag}”`
+        : `${visible} posts`;
+      emptyEl.classList.toggle('hidden', visible !== 0);
+    }
+
+    function setTag(tag, pushState) {
+      activeTag = (tag || '').toLowerCase();
+      const url = new URL(window.location.href);
+      if (activeTag) {
+        url.searchParams.set('tag', activeTag);
+      } else {
+        url.searchParams.delete('tag');
+      }
+      if (pushState) window.history.replaceState({}, '', url);
+      applyFilter();
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        setTag(button.getAttribute('data-filter-tag'), true);
+      });
+    });
+
+    document.querySelectorAll('[data-post-tag]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        setTag(link.getAttribute('data-post-tag'), true);
+      });
+    });
+
+    // Ignore a tag that no longer exists in the URL.
+    if (activeTag && !buttons.some((button) => (button.getAttribute('data-filter-tag') || '').toLowerCase() === activeTag)) {
+      activeTag = '';
+    }
+    applyFilter();
+  })();
+</script>

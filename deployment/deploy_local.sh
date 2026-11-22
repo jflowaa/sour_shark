@@ -14,6 +14,9 @@ PROJECT="sour-shark"
 LOCAL_HOST="jack-develops.localhost"
 DOCKERFILE="Dockerfile"
 
+echo "==> building static site into output/"
+mix build
+
 case "$(uname -m)" in
   arm64|aarch64) platform=linux/arm64 ;;
   *) platform=linux/amd64 ;;
