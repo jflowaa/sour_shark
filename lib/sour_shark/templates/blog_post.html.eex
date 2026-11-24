@@ -66,12 +66,10 @@
   #blog-article ul>li::marker { color: var(--tw-prose-bullets); }
   #blog-article ol>li::marker { color: var(--tw-prose-counters); }
   /* Improve link visibility & accessibility */
-  #blog-article a { color: hsl(var(--p, 221 83% 53%)); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; font-weight: 500; transition: color .15s ease, background-color .15s ease, text-decoration-color .15s ease; }
-  #blog-article a:hover, #blog-article a:focus-visible { color: hsl(var(--p, 221 83% 46%)); text-decoration-color: currentColor; }
+  #blog-article a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; font-weight: 500; transition: color .15s ease, background-color .15s ease, text-decoration-color .15s ease; }
+  #blog-article a:hover, #blog-article a:focus-visible { color: color-mix(in oklch, var(--color-primary) 85%, var(--color-base-content)); text-decoration-color: currentColor; }
   #blog-article a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 2px; }
   #blog-article a code { color: inherit; }
-  .prose-invert #blog-article a { color: hsl(var(--p, 217 91% 60%)); }
-  .prose-invert #blog-article a:hover, .prose-invert #blog-article a:focus-visible { color: hsl(var(--p, 217 91% 70%)); }
   /* Do NOT restyle links that wrap entire headings (keep heading typography) */
   #blog-article h1>a, #blog-article h2>a, #blog-article h3>a, #blog-article h4>a, #blog-article h5>a, #blog-article h6>a {
     color: inherit !important;
@@ -87,7 +85,7 @@
   (function() {
     function applyProseTheme() {
       const theme = document.documentElement.getAttribute('data-theme');
-      const dark = theme === 'dim' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const dark = theme === 'sour-dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
       const article = document.getElementById('blog-article');
       if (!article) return;
       article.classList.toggle('prose-invert', dark);

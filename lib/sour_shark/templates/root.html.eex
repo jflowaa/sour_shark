@@ -101,8 +101,7 @@
 
       function applyTheme(theme) {
         if (theme === 'light' || theme === 'dark') {
-          // map logical 'dark' to daisyUI 'dim'
-          root.setAttribute('data-theme', theme === 'dark' ? 'dim' : 'light');
+          root.setAttribute('data-theme', theme === 'dark' ? 'sour-dark' : 'sour');
         } else {
           root.removeAttribute('data-theme'); // fall back to system via daisyUI config
         }
